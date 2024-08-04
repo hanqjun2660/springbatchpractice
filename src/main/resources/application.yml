@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: springBatch
+
+  # prevent job execution when running the application
+  batch:
+    job:
+      enabled: false
+
+  # spring batch meta database
+  datasource-meta:
+    driver-class-name: org.mariadb.jdbc.Driver
+    jdbc-url: jdbd:mariadb://localhost:3306/springbatch?useSSL=false&useUnicode=true&serverTimeZome=Asia/Seoul&allowPublickeyRetrieval=true
+    username: springbatch
+    password: springbatch
+
+  # mariaDB database
+  datasource-data:
+      driver-class-name:
+      jdbc-url: jdbd:mariadb://localhost:3306/prod?useSSL=false&useUnicode=true&serverTimeZome=Asia/Seoul&allowPublickeyRetrieval=true
+      username: prod
+      password: prod
