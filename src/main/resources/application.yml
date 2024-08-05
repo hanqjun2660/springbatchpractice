@@ -6,17 +6,20 @@ spring:
   batch:
     job:
       enabled: false
+    jdbc:
+      initialize-schema: always
+      schema: classpath:org/springframework/batch/core/schema-mariadb.sql
 
   # spring batch meta database
   datasource-meta:
     driver-class-name: org.mariadb.jdbc.Driver
-    jdbc-url: jdbd:mariadb://localhost:3306/springbatch?useSSL=false&useUnicode=true&serverTimeZome=Asia/Seoul&allowPublickeyRetrieval=true
+    jdbc-url: jdbc:mariadb://localhost:3306/springbatch?useSSL=false&useUnicode=true&serverTimeZome=Asia/Seoul&allowPublickeyRetrieval=true
     username: springbatch
     password: springbatch
 
   # mariaDB database
   datasource-data:
-      driver-class-name:
-      jdbc-url: jdbd:mariadb://localhost:3306/prod?useSSL=false&useUnicode=true&serverTimeZome=Asia/Seoul&allowPublickeyRetrieval=true
+      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: jdbc:mariadb://localhost:3306/prod?useSSL=false&useUnicode=true&serverTimeZome=Asia/Seoul&allowPublickeyRetrieval=true
       username: prod
       password: prod
