@@ -19,6 +19,7 @@ public class ExcelRowWriter implements ItemStreamWriter<BeforeEntity> {
     private Workbook workbook;
     private Sheet sheet;
     private int currentRowNumber;
+    private boolean isClosed;
 
     public ExcelRowWriter(String filePath) {
         this.filePath = filePath;
@@ -42,6 +43,11 @@ public class ExcelRowWriter implements ItemStreamWriter<BeforeEntity> {
     @Override
     public void close() throws ItemStreamException {
 
+        // 배치 어플리케이션 종료과정에서 close()를 통해 정상적으로 닫힌 파일을 다시 핸들링하여 파일이 깨지는 문제를 막기위한 flag 추가
+        if(isClosed) {
+            return;
+        }
+
         try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
             workbook.write(fileOut);
         } catch (IOException e) {
@@ -51,6 +57,8 @@ public class ExcelRowWriter implements ItemStreamWriter<BeforeEntity> {
                 workbook.close();
             } catch (IOException e) {
                 throw new ItemStreamException(e);
+            } finally {
+                isClosed = true;
             }
         }
     }
